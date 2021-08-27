@@ -64,6 +64,7 @@ export default class Login extends Component {
                 NotificationManager.success("success", "Login");
                 // await GetUserLogin.authenticateByCart(c.token, email);
                
+
             } else {
                 NotificationManager.error("Please check your email & passord", "Input Error");
             }
