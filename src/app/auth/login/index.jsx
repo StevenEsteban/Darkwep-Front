@@ -61,12 +61,14 @@ export default class Login extends Component {
         let { email, password } = this.state;
         let data = { email: email, password: password }
         if (formValid(this.state)) {
-            let user = await GetUserLogin.getUserLogin(data);
-            if (user) {
+             GetUserLogin.getUserLogin(data);
+            let b = data
+            // console.log(user)
+            if (b) {
                 NotificationManager.success("success", "Login");
-                await GetUserLogin.authenticate(user.token,email);
+                GetUserLogin.authenticate(b.token,email);
             } else {
-                NotificationManager.error("Please check your email & passord", "Input Error");
+                NotificationManager.error("Please check your email & password", "Input Error");
             }
         } else {
             NotificationManager.error("Please check your Login", "Input Error");
@@ -99,7 +101,7 @@ export default class Login extends Component {
                                                         <div className="tab-pane active" id="login" role="tabpanel">
                                                             <h5 className="heading-design-h5">Login to your account</h5>
                                                             <fieldset className="form-group">
-                                                                <label>Enter Email/Mobile number</label>
+                                                                <label>Enter Email</label>
                                                                 <input type="email" className="form-control" name="email" value={email} onChange={this.handleChange} />
                                                                 {formErrors.email.length > 0 && (
                                                                     <span className="errorMessage">{formErrors.email}</span>

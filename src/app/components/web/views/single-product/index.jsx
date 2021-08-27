@@ -3,30 +3,40 @@ import { Paper } from '@material-ui/core';
 import Slider from "react-slick";
 import parse from 'html-react-parser';
 import { GetProductDetails } from '../../../services';
-
+import Axios from 'axios';
+import { addToCart } from '../../../../store/actions/cartActions';
 import './index.css'
+import product from '../product';
+import { connect } from 'react-redux';
 class Singleproduct extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            product: '',
+            jcvd: "string",
+            product: {},
         }
     }
     async componentDidMount() {
+        
         window.scrollTo(0, 0)
         let url = window.location.href.split('/');
         var lastSegment = url.pop() || url.pop();
-        let list = await GetProductDetails.getProductById(lastSegment);
-        this.setState({ product: list.data })
+        let d = lastSegment
+        console.log(d)
+        Axios.get(`https://webshop-darkwep.herokuapp.com/api/products/${d}`)
+            .then(res => {
+                console.log(res.data)
+                this.setState({ product: res.data })
+            })
     }
     render() {
-        const{ product } = this.state;
+        const  product  = this.state.product;
         const settings = {
             customPaging: function (i) {
                 return (
                     <div id="sync1" className="owl-carousel">
                         <div className="item">
-                            <img src={product.productphotos[i].imgUrl} />
+                            <img src={product.img} alt="pic" />
                         </div>
                     </div>
                 );
@@ -38,13 +48,14 @@ class Singleproduct extends Component {
             slidesToShow: 1,
             slidesToScroll: 1,
         };
+        
         return (
             <div>
                 <section className="pt-3 pb-3 page-info section-padding border-bottom bg-white single-product-header-bk">
                     <div className="container">
                         <div className="row">
                             <div className="col-md-12">
-                                <a href="#"><strong><span className="mdi mdi-home" /> Home</strong></a> <span className="mdi mdi-chevron-right" /> <a href="#">Fruits &amp; Vegetables</a> <span className="mdi mdi-chevron-right" /> <a href="#">Fruits</a>
+                                <a href="/"><strong><span className="mdi mdi-home" /> Home</strong></a> <span className="mdi mdi-chevron-right" /> <a href="/shop/undefined">Weapons</a>
                             </div>
                         </div>
                     </div>
@@ -57,14 +68,15 @@ class Singleproduct extends Component {
                                 <div className="row">
                                     <div className="col-md-6">
                                         <div className="shop-detail-left">
-                                            <Paper className="shop-detail-slider">
+                                        <img alt="pictur" src={product.img} className="img-fluid img-center" />
+                                            {/* <Paper className="shop-detail-slider">
                                                 <Slider {...settings}>
                                                     {
-                                                        product.productphotos ?
-                                                            product.productphotos.map((r, index) => {
+                                                        product.img ?
+                                                            product.img.map((r, index) => {
                                                                 return (
                                                                     <div key={index}>
-                                                                        <img alt src={r.imgUrl} className="img-fluid img-center" />
+                                                                        <img alt="pictur" src={r.imgUrl} className="img-fluid img-center" />
                                                                     </div>
                                                                 )
                                                             })
@@ -73,26 +85,24 @@ class Singleproduct extends Component {
 
                                                 </Slider>
 
-                                            </Paper>
+                                            </Paper> */}
                                         </div>
                                     </div>
                                     <div className="col-md-6">
                                         <div className="shop-detail-right">
-                                            <span className="badge badge-success">{product.discountPer}% OFF</span>
+                                            
                                             <h2>{product.name}</h2>
-                                            <h6><strong><span className="mdi mdi-approval" /> Available in</strong> - {product.unitSize}</h6>
-                                            <div className="pdp-product__old-price">
-                                                <span className="space__right--2-unit">Product MRP:</span><span className="regular-price">&#x20B9;{product.price}</span>
-                                            </div>
+                                            <h6><strong><span className="mdi mdi-approval" />in stock</strong></h6>
+                                        
 
                                             <div className="pdp-product__new-price">
                                                 <span className="space__right--2-unit">Selling price:</span>
-                                                <span className="pdp-product__price--new">&#x20B9;{product.netPrice}</span>
+                                                <span className="pdp-product__price--new">${product.price}</span>
                                                 <div className="pdp-product__tax-disclaimer">(Inclusive of all taxes)</div>
                                             </div>
-
+                                                                                                        
                                             <button type="button" className="btn btn-secondary btn-lg" onClick={() => this.props.addToCart(product)}><i className="mdi mdi-cart-outline" /> Add To Cart</button>
-                                            <h6 className="mb-3 mt-4">Why shop from Groci?</h6>
+                                            <h6 className="mb-3 mt-4">Why shop from DarkWep ?</h6>
                                             <div className="row">
                                                 <div className="col-md-12">
                                                     <div className="feature-box">
@@ -118,8 +128,8 @@ class Singleproduct extends Component {
                                                 <h4>Product Details</h4>
                                             </div>
                                             <div className="pdpt-body scrollstyle_4">
-                                                <div className="pdct-dts-1 short-desc">
-                                                    {parse(product.desc)}
+                                                <div className="pdct-dts-1 short-description">
+                                                    {product.description}
                                                 </div>
                                             </div>
                                         </div>
@@ -141,4 +151,5 @@ class Singleproduct extends Component {
     }
 }
 
-export default Singleproduct;
+export default connect(null, { addToCart })(Singleproduct);
+

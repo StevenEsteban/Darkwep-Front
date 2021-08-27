@@ -2,9 +2,9 @@ import api from '../../../../app/ApiConfig';
 import { Apis } from '../../../../config';
 import { NotificationManager } from 'react-notifications';
 
-const getAllCategoryList = async (slug) => {
+const getAllCategoryList = async(slug) => {
     try {
-        let result = await api.get(Apis.GetAllCategoryList+slug);
+        let result = await api.get(Apis.GetAllProductList);
         if (result.data.error) {
             NotificationManager.error(result.data.error);
             return null;
@@ -16,9 +16,9 @@ const getAllCategoryList = async (slug) => {
     }
 };
 
-const getFilterByCategory = async (data) => {
+const getFilterByCategory = async(data) => {
     try {
-        let result = await api.get(Apis.GetFilterByCategory+`/${data.slug}/${data.id}`);
+        let result = await api.get(Apis.GetFilterByCategory + `/${data.slug}/${data.id}`);
         if (result.data.error) {
             NotificationManager.error(result.data.error);
             return null;

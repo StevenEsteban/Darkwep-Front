@@ -50,7 +50,7 @@ export default class Similarproduct extends Component {
                 <section className="product-items-slider section-padding">
                     <div className="container" id="header-category-bk">
                         <div className="section-header">
-                            <span>For You</span>
+                            
                             <h5 className="heading-design-h5">Frequently Bought Together {/* <span className="badge badge-primary">20% OFF</span> */}
                                 <a className="float-right text-secondary" href="shop.html">View All</a>
                             </h5>
@@ -179,7 +179,7 @@ export default class Similarproduct extends Component {
                 <section className="product-items-slider section-padding">
                     <div className="container" id="header-category-bk">
                         <div className="section-header">
-                            <span>For You</span>
+                         
                             <h5 className="heading-design-h5">Most Popular {/* <span className="badge badge-primary">20% OFF</span> */}
                                 <a className="float-right text-secondary" href="shop.html">View All</a>
                             </h5>

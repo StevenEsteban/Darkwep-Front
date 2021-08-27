@@ -39,7 +39,7 @@ class Productview extends Component {
         let url = window.location.href.split('/');
         var lastSegment = url.pop() || url.pop();
 
-        let data = { id: row.id, name: lastSegment }
+        let data = { id: row._id, name: lastSegment }
         let category = await GetProductDetails.getProductBySubcategory(data);
         if (category) {
             this.setState({ categorybyproduct: category.data, isloaded: true, toggle: true })
@@ -58,7 +58,7 @@ class Productview extends Component {
                     <div className="container">
                         <div className="row">
                             <div className="col-md-12">
-                                <a href="#"><strong><span className="mdi mdi-home" /> Home</strong></a> <span className="mdi mdi-chevron-right" /> <a href="#">Fruits &amp; Vegetables</a> <span className="mdi mdi-chevron-right" /> <a href="#">Fruits</a>
+                                <a href="/"><strong><span className="mdi mdi-home" /> Home</strong></a> <span className="mdi mdi-chevron-right" /> <a href="/shop/undefined">All Weapons</a> <span className="mdi mdi-chevron-right" />
                             </div>
                         </div>
                     </div>
@@ -105,7 +105,7 @@ class Productview extends Component {
 
                             <div className="col-md-9">
                                 <div className="shop-head">
-                                    <a href="#"><span className="mdi mdi-home" /> Home</a> <span className="mdi mdi-chevron-right" /> <a href="#">Fruits &amp; Vegetables</a> <span className="mdi mdi-chevron-right" /> <a href="#">Fruits</a>
+                                    <a href="/"><span className="mdi mdi-home" /> Home</a> <span className="mdi mdi-chevron-right" /> <a href="/shop/undefined"> All Weapons</a> <span className="mdi mdi-chevron-right" />
                                     <div className="btn-group float-right mt-2">
                                         <button type="button" className="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Sort by Products &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -118,7 +118,7 @@ class Productview extends Component {
                                             <a className="dropdown-item" href="#">Name (A to Z)</a>
                                         </div>
                                     </div>
-                                    <h5 className="mb-3">Fruits</h5>
+                                    {/* <h5 className="mb-3">Fruits</h5> */}
                                 </div>
                                 {!isloaded ? <div className="progress-bar-bk"><CircularProgress color="secondary" /></div> :
                                     toggle ?
@@ -131,22 +131,22 @@ class Productview extends Component {
                                                                 <div className="item">
                                                                     <div className="product">
                                                                         <Link to={{
-                                                                            pathname: `/p/${row.slug}/${row.id}`,
+                                                                            pathname: `/p/${row.slug}/${row._id}`,
                                                                             state: row
                                                                         }}>
                                                                             <div className="product-header">
-                                                                                <span className="badge badge-success">{row.discountPer}% OFF</span>
-                                                                                <img className="img-fluid" src={row.photo} alt="product" />
-                                                                                <span className="veg text-success mdi mdi-circle" />
+                                                                                <span className="badge badge-success">okkkkkkk</span>
+                                                                                <img className="img-fluid" src={row.img} alt="product" />
+                                                                               
                                                                             </div>
                                                                             <div className="product-body">
                                                                                 <h5>{row.name}</h5>
-                                                                                <h6><strong><span className="mdi mdi-approval" /> Available in</strong> - {row.unitSize}</h6>
+                                                                                <h6><strong><span className="mdi mdi-approval" /> Available</strong> - {row.unitSize}</h6>
                                                                             </div>
                                                                         </Link>
                                                                         <div className="product-footer">
                                                                             <button type="button" className="btn btn-secondary btn-sm float-right" onClick={() => this.props.addToCart(row)}><i className="mdi mdi-cart-outline" /> Add To Cart</button>
-                                                                            <p className="offer-price mb-0">&#x20B9;{row.netPrice}  <i className="mdi mdi-tag-outline" /><br /><span className="regular-price">&#x20B9;{row.price} </span></p>
+                                                                            <p className="offer-price mb-0"><i className="mdi mdi-tag-outline" /><br /><span className="regular-price">${row.price} </span></p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -168,18 +168,18 @@ class Productview extends Component {
                                                                             state: row
                                                                         }}>
                                                                             <div className="product-header">
-                                                                                <span className="badge badge-success">{row.discountPer}% OFF</span>
-                                                                                <img className="img-fluid" src={row.photo} alt="product" />
-                                                                                <span className="veg text-success mdi mdi-circle" />
+                                                                                <span className="badge badge-success">% OFF</span>
+                                                                                <img className="img-fluid" src={row.img} alt="product" />
+                                                                                
                                                                             </div>
                                                                             <div className="product-body">
                                                                                 <h5>{row.name}</h5>
-                                                                                <h6><strong><span className="mdi mdi-approval" /> Available in</strong> - {row.unitSize}</h6>
+                                                                                <h6><strong><span className="mdi mdi-approval" /> Available</strong></h6>
                                                                             </div>
                                                                         </Link>
                                                                         <div className="product-footer">
                                                                             <button type="button" className="btn btn-secondary btn-sm float-right" onClick={() => this.props.addToCart(row)}><i className="mdi mdi-cart-outline" /> Add To Cart</button>
-                                                                            <p className="offer-price mb-0">&#x20B9;{row.netPrice}  <i className="mdi mdi-tag-outline" /><br /><span className="regular-price">&#x20B9;{row.price} </span></p>
+                                                                            <p className="offer-price mb-0"><i className="mdi mdi-tag-outline" /><br /><span className="regular-price">${row.price} </span></p>
                                                                         </div>
                                                                     </div>
                                                                 </div>

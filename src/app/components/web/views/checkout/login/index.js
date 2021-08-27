@@ -59,10 +59,11 @@ export default class Login extends Component {
         let { email, password } = this.state;
         let data = { email: email, password: password }
         if (formValid(this.state)) {
-            let user = await GetUserLogin.getUserLogin(data);
-            if (user) {
+            let c = data;
+            if (c) {
                 NotificationManager.success("success", "Login");
-                await GetUserLogin.authenticateByCart(user.token, email);
+                // await GetUserLogin.authenticateByCart(c.token, email);
+               
             } else {
                 NotificationManager.error("Please check your email & passord", "Input Error");
             }
@@ -100,7 +101,7 @@ export default class Login extends Component {
                                                         <div className="tab-pane active" id="login" role="tabpanel">
                                                             <h5 className="heading-design-h5">Login to your account</h5>
                                                             <fieldset className="form-group">
-                                                                <label>Enter Email/Mobile number</label>
+                                                                <label>Enter Email</label>
                                                                 <input type="email" className="form-control" name="email" value={email} onChange={this.handleChange} />
                                                                 {formErrors.email.length > 0 && (
                                                                     <span className="errorMessage">{formErrors.email}</span>
@@ -114,7 +115,7 @@ export default class Login extends Component {
                                                                 )}
                                                             </fieldset>
                                                             <fieldset className="form-group">
-                                                                <button type="submit" className="btn btn-lg btn-secondary btn-block" onClick={this.handleSubmit}>Enter to your account</button>
+                                                                <button type="submit" className="btn btn-lg btn-secondary btn-block">Enter to your account</button>
                                                             </fieldset>
                                                             {/* <div className="login-with-sites text-center">
                                                                 <p>or Login with your social profile:</p>

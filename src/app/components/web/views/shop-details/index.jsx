@@ -7,11 +7,15 @@ import { NotificationManager } from 'react-notifications';
 import './index.css'
 import Filterbycategory from './Filtersbycategory';
 import CircularProgress from '@material-ui/core/CircularProgress';
+// import { GroceryStampleDetails } from '../../../services';
+
+
 class Shopdetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
             list: [], limit:12, isloaded: false
+            
         }
     }
     async componentDidMount() {
@@ -21,11 +25,15 @@ class Shopdetails extends Component {
         try {
             let p = await GetProductDetails.getAllProductList(lastSegment);
             if (p) {
-                this.setState({ list: p.data.products, isloaded: true })
+                this.setState({ list: p.data, isloaded: true })
             }
+            
+
         } catch (e) {
             NotificationManager.error("Empty data in category", "Data");
         }
+    
+
     }
     onLoadMore =event=> {
         this.setState({ limit: this.state.limit+6})
@@ -33,17 +41,22 @@ class Shopdetails extends Component {
     handleChangeByCategory(value) {
         if (value) {
             this.setState({ isloaded: true, list: value.data })
+            // console.log(this.state)
         }
     }
     render() {
+        
         let { list, isloaded, limit } = this.state;
+        //  console.log(list)
+        //  console.log(this.state)
         return (
+       
             <div>
                 <section className="pt-3 pb-3 page-info section-padding border-bottom bg-white single-product-header-bk">
                     <div className="container">
                         <div className="row">
                             <div className="col-md-12">
-                                <a href="#"><strong><span className="mdi mdi-home" /> Home</strong></a> <span className="mdi mdi-chevron-right" /> <a href="#">Fruits &amp; Vegetables</a> <span className="mdi mdi-chevron-right" /> <a href="#">Fruits</a>
+                                <a href="/"><strong><span className="mdi mdi-home" /> Home</strong></a> <span className="mdi mdi-chevron-right" /> <a href="/shop/undefined">All Weapons</a>
                             </div>
                         </div>
                     </div>
@@ -84,32 +97,34 @@ class Shopdetails extends Component {
                             <div className="row">
                                 <div className="col-md-12">
                                     <div className="row no-gutters">
+                                        
                                         {
                                             list.slice(0, limit).map((row, index) => (
                                                 <div key={index} className="col-md-4">
                                                     <div className="item">
                                                         <div className="product">
                                                             <Link to={{
-                                                                pathname: `/p/${row.slug}/${row.id}`,
+                                                                pathname: `/p/${row.name}/${row._id}`,
                                                                 state: row
                                                             }}>
                                                                 <div className="product-header">
-                                                                    <span className="badge badge-success">{row.discountPer}% OFF</span>
-                                                                    <img className="img-fluid" src={row.photo} alt="product" />
-                                                                    <span className="veg text-success mdi mdi-circle" />
+                                                                    {/* <span className="badge badge-success">{row.discountPer}% OFF</span> */}
+                                                                    <img className="img-fluid" src={row.img} alt="product" />
+                                                                    
                                                                 </div>
                                                                 <div className="product-body">
                                                                     <h5>{row.name}</h5>
-                                                                    <h6><strong><span className="mdi mdi-approval" /> Available in</strong> - {row.unitSize}</h6>
+                                                                    <h6><strong><span className="mdi mdi-approval" />in stock</strong></h6>
                                                                 </div>
                                                             </Link>
                                                             <div className="product-footer">
                                                                 <button type="button" className="btn btn-secondary btn-sm float-right" onClick={() => this.props.addToCart(row)}><i className="mdi mdi-cart-outline" /> Add To Cart</button>
-                                                                <p className="offer-price mb-0">&#x20B9;{row.netPrice}  <i className="mdi mdi-tag-outline" /><br /><span className="regular-price">&#x20B9;{row.price} </span></p>
+                                                                <p className="offer-price mb-0">${row.price}</p>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                
                                             ))}
                                     </div>
 
@@ -123,8 +138,7 @@ class Shopdetails extends Component {
                     }
                 </section>
 
-
-                {/* end product section */}
+               
             </div>
         )
     }

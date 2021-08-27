@@ -10,8 +10,8 @@ export default class Bestofferbanner extends Component {
                             <div className="col-md-12">
                                 <div className="main-title-tt">
                                     <div className="main-title-left">
-                                        <span>Offers</span>
-                                        <h2>Best Values</h2>
+                                        
+                                        <h2>Limited</h2>
                                     </div>
                                 </div>
                             </div>
@@ -28,9 +28,8 @@ export default class Bestofferbanner extends Component {
                             <div className="col-lg-4 col-md-6">
                                 <a href="#" className="best-offer-item offr-none">
                                     <img src="img/best-offers/offer-3.jpg" alt />
-                                    <div className="cmtk_dt">
-                                        <div className="product_countdown-timer offer-counter-text" data-countdown="2021/01/06">165 days 01:28:33</div>
-                                    </div>
+                                   
+                                        
                                 </a>
                             </div>
                             <div className="col-md-12">

@@ -4,7 +4,7 @@ class Loader extends Component {
     render() {
         return (
             <div>
-                <Loading loading loaderColor="#f55d2c" />
+                <Loading loading loaderColor="#922E2E" />
             </div>
         );
     }

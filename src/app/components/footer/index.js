@@ -12,21 +12,21 @@ export default class Footer extends Component {
                                 <div className="feature-box">
                                     <i className="mdi mdi-truck-fast" />
                                     <h6>Free &amp; Next Day Delivery</h6>
-                                    <p>Lorem ipsum dolor sit amet, cons...</p>
+                                    <p></p>
                                 </div>
                             </div>
                             <div className="col-lg-4 col-sm-6">
                                 <div className="feature-box">
                                     <i className="mdi mdi-basket" />
                                     <h6>100% Satisfaction Guarantee</h6>
-                                    <p>Rorem Ipsum Dolor sit amet, cons...</p>
+                                    <p></p>
                                 </div>
                             </div>
                             <div className="col-lg-4 col-sm-6">
                                 <div className="feature-box">
                                     <i className="mdi mdi-tag-heart" />
                                     <h6>Great Daily Deals Discount</h6>
-                                    <p>Sorem Ipsum Dolor sit amet, Cons...</p>
+                                    <p></p>
                                 </div>
                             </div>
                         </div>
@@ -36,29 +36,16 @@ export default class Footer extends Component {
                 <section className="section-padding footer bg-white border-top">
                     <div className="container">
                         <div className="row">
-                            <div className="col-lg-3 col-md-3">
-                                <h4 className="mb-5 mt-0"><a className="logo" href="index.html"><img src="img/logo-footer.png" alt="CitwaShop" /></a></h4>
-                                <p className="mb-0"><a className="text-dark" href="#"><i className="mdi mdi-phone" /> +61 525 240 310</a></p>
-                                <p className="mb-0"><a className="text-dark" href="#"><i className="mdi mdi-cellphone-iphone" /> 12345 67890, 56847-98562</a></p>
-                            </div>
+                           
+                            
                             <div className="col-lg-2 col-md-2">
-                                <h6 className="mb-4">TOP CITIES </h6>
+                                <h6 className="mb-4">MOST POPULAR CATEGORIES</h6>
                                 <ul>
-                                    <li><a href="#">New Delhi</a></li>
-                                    <li><a href="#">Bengaluru</a></li>
-                                    <li><a href="#">Hyderabad</a></li>
-                                    <li><a href="#">Kolkata</a></li>
-                                    <li><a href="#">Gurugram</a></li>
-                                    <ul>
-                                    </ul></ul></div>
-                            <div className="col-lg-2 col-md-2">
-                                <h6 className="mb-4">CATEGORIES</h6>
-                                <ul>
-                                    <li><a href="#">Vegetables</a></li>
-                                    <li><a href="#">Grocery &amp; Staples</a></li>
-                                    <li><a href="#">Breakfast &amp; Dairy</a></li>
-                                    <li><a href="#">Soft Drinks</a></li>
-                                    <li><a href="#">Biscuits &amp; Cookies</a></li>
+                                    <li><a href="#">MISSILES</a></li>
+                                    <li><a href="#">FIREARMS</a></li>
+                                    <li><a href="#">NUKES</a></li>
+                                    <li><a href="#">GRENADES</a></li>
+                                    <li><a href="#">TANKS</a></li>
                                     <ul>
                                     </ul></ul></div>
                             <div className="col-lg-2 col-md-2">
@@ -92,18 +79,7 @@ export default class Footer extends Component {
                 </section>
                 {/* End Footer */}
                 {/* Copyright */}
-                <section className="pt-4 pb-4 footer-bottom">
-                    <div className="container">
-                        <div className="row no-gutters">
-                            <div className="col-lg-6 col-sm-6">
-                                <p className="mt-1 mb-0">© Copyright 2020 <strong className="text-dark">ChitwaShop</strong>. All Rights Reserved<br />
-                                    <small className="mt-0 mb-0">Made with <i className="mdi mdi-heart text-danger" /> by Ranchi
-                                    </small>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+             
                 {/* End Copyright */}
             </div>
         )

@@ -26,10 +26,12 @@ export default class Register extends Component {
         super(props);
         this.state = {
             firstName:null,
+            lastName:null,
             email: null,
             password: null,
             formErrors: {
                 firstName:"",
+                lastName:"",
                 email: "",
                 password: ""
             }
@@ -39,11 +41,14 @@ export default class Register extends Component {
         e.preventDefault();
         const { name, value } = e.target;
         let formErrors = { ...this.state.formErrors };
-
         switch (name) {
-            case "firstName":
+            case "first_name":
                 formErrors.firstName =
                     value.length < 3 ? "minimum 3 characaters required" : "";
+                break;
+            case "last_name":
+                formErrors.lastName =
+                value.length < 3 ? "minimum 3 characaters required" : "";
                 break;
             case "email":
                 formErrors.email = emailRegex.test(value)
@@ -63,21 +68,26 @@ export default class Register extends Component {
 
     handleSubmit = async (event) => {
         event.preventDefault();
-        let { firstName, email, password, gender } = this.state;
-        let data = {firstName: firstName, email: email, password: password, gender: gender }
+        let { firstName, lastName, email, password } = this.state;
+        let data = {first_name: firstName, last_name:lastName, email:email, password:password }
         if (formValid(this.state)) {
-          let list = await GetUserLogin.getUserRegister(data);
-          if(list){
+         GetUserLogin.getUserRegister(data);
+          let a = data
+          console.log(a)
+        
+          if(a){
             NotificationManager.success("Successfully Added New User");
-            // window.location.href="/";
+            window.location.href="/login" 
           }
+         
         } else{
             NotificationManager.error("Please check your Register", "Input Error");
           }
 
     }
     render() {
-        let { firstName,email, password, formErrors } = this.state;
+        let { firstName, lastName, email, password, formErrors } = this.state;
+
         return (
             <div>
                 <h5 className="heading-design-h5">Register Now!</h5>
@@ -89,7 +99,14 @@ export default class Register extends Component {
                     )}
                 </fieldset>
                 <fieldset className="form-group">
-                    <label>Enter Email/Mobile number</label>
+                    <label>Last Name</label>
+                    <input type="text" className="form-control" name="lastName" value={lastName} onChange={this.handleChange}  />
+                    {formErrors.firstName.length > 0 && (
+                        <span className="errorMessage">{formErrors.lastName}</span>
+                    )}
+                </fieldset>
+                <fieldset className="form-group">
+                    <label>Enter Email</label>
                     <input type="text" className="form-control" name="email" value={email} onChange={this.handleChange}  />
                     {formErrors.email.length > 0 && (
                         <span className="errorMessage">{formErrors.email}</span>
@@ -109,10 +126,7 @@ export default class Register extends Component {
                 <fieldset className="form-group">
                     <button type="submit" className="btn btn-lg btn-secondary btn-block" onClick={this.handleSubmit}>Create Your Account</button>
                 </fieldset>
-                <div className="custom-control custom-checkbox">
-                    <input type="checkbox" className="custom-control-input" id="customCheck2" />
-                    <label className="custom-control-label" htmlFor="customCheck2">I Agree with <a href="#">Term and Conditions</a></label>
-                </div>
+               
             </div>
         )
     }

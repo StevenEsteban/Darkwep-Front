@@ -21,7 +21,7 @@ export default class rootRoutes extends Component {
                 <Header />
                 <Switch>
                     <Route exact path='/' component={Home} />
-                    <Route exact path='/p/:slug/:id' component={Singleproduct} />
+                    <Route exact path='/p/:id' component={Singleproduct} />
                     <Route exact path='/shop/:slug' component={Shopdetails} />
                     <Route path='/checkout' component={Checkout} /> 
                     <Route path='/product/catalogsearch/result' component={Productview} /> 

@@ -10,7 +10,7 @@ class Checkout extends Component {
         super(props);
         this.state = {
             isLoaded: false,
-            subTotal: '', discount: '', deliveryCharge: 0, grandTotal: '', email: '', customer: '', paymentmethod: '', deliveryAddress: ''
+            price: 0, grandTotal: 0, user_id: '', products: '', paymentmethod: '', deliveryAddress: ''
         }
     }
     handleRadioChange = e => {
@@ -22,47 +22,51 @@ class Checkout extends Component {
     async componentDidMount() {
         let email = sessionStorage.getItem('email')
         if (email) {
-            let user = await GetUserLogin.getCustomerDetail(email);
+            let user = await GetUserLogin.getCustomerDetail();
+            console.log(user)
             if (user) {
-                this.setState({ customer: user.data, email: email })
+                this.setState({ user_id: user._id, email: email })
             }
         }
         let cart = this.props.cartItems;
-        let subTotal = cart.reduce((sum, i) => (sum += i.qty * i.netPrice), 0)
-        let discount = cart.reduce((sum, i) => (sum += i.discount), 0)
-        let grandTotal = subTotal + discount + this.state.deliveryCharge;
+        
+        let grandTotal = cart.reduce((sum, i) => (sum += i.qty * i.price), 0)
 
-        this.setState({ subTotal: subTotal, discount: discount, grandTotal: grandTotal, deliveryCharge: this.state.deliveryCharge })
+        this.setState({ user_id: this.state.user_id, products: this.state.cartItems, grandTotal: this.state.grandTotal })
 
     }
     handlePlaceOrder = async (event) => {
         event.preventDefault();
-        const { customer, grandTotal, deliveryAddress, paymentmethod } = this.state;
-        let orderId = Math.floor(Math.random() * Math.floor(Math.random() * Date.now()))
-        let { cartItems } = this.props
-        let data = { customerId: customer.id, paymentmethod: paymentmethod, orderId: orderId, deliveryAddress: deliveryAddress, product: cartItems, grandTotal, grandTotal }
-        if (data) {
-            let order = await GetOrderDetails.getOrderCreateByUser(JSON.stringify(data));
-            if (order) {
-                NotificationManager.success("Successfully Ordered", "Order");
-                setTimeout(
-                    async function () {
-                        CartHelper.emptyCart();
-                    },
-                    1000
-                );
-            } else {
-                NotificationManager.error("Order is declined", "Order");
-                setTimeout(
-                    async function () {
-                        window.location.href = "/failed"
-                    },
-                    1000
-                );
-            }
-        }
+        const { user_id, grandTotal, cartItems, } = this.state;
+        console.log(this.state)
+        console.log(cartItems)
+        console.log(this.props)
+        let orderdata = {products : [], user_id: '', price : 10}
+        // let { cartItems } = this.props
+        // let data = {user_id: user_id, products: cartItems, price: grandTotal }
+        // console.log(data)
+        // if (data) {
+        //     let order = await GetOrderDetails.getOrderCreateByUser(JSON.stringify(data));
+        //     if (order) {
+        //         NotificationManager.success("Successfully Ordered", "Order");
+        //         setTimeout(
+        //             async function () {
+        //                 CartHelper.emptyCart();
+        //             },
+        //             1000
+        //         );
+        //     } else {
+        //         NotificationManager.error("Order is declined", "Order");
+        //         setTimeout(
+        //             async function () {
+        //                 window.location.href = "/failed"
+        //             },
+        //             1000
+            //     );
+            // }
+        // }
     }
-
+   
     loadScript(src) {
         return new Promise((resolve) => {
             const script = document.createElement("script");
@@ -177,7 +181,7 @@ class Checkout extends Component {
                     <div className="container">
                         <div className="row">
                             <div className="col-md-12">
-                                <a href="/"><strong><span class="mdi mdi-home"></span> Home</strong></a> <span class="mdi mdi-chevron-right"></span> <a >Checkout</a>
+                                <a href="/"><strong><span class="mdi mdi-home"></span> Home</strong></a> <span class="mdi mdi-chevron-right"></span> <a>Checkout</a>
                             </div>
                         </div>
                     </div>
@@ -193,14 +197,14 @@ class Checkout extends Component {
                                 <div className="checkout-step">
                                     <div className="accordion" id="accordionExample">
                                         <div className="card checkout-step-one">
-                                            <div className="card-header" id="headingOne">
+                                            {/* <div className="card-header" id="headingOne">
                                                 <h5 className="mb-0">
                                                     <button className="btn btn-link checkout-login-bk" disabled>
                                                         <span className="number">1</span> Login <span className="mdi mdi-checkbox-marked-circle-outline"></span>
                                                     </button>
-                                                    <div className="_2jDL7w"><div><span className="dNZmcB">{customer.firstName} </span><span className="_3MeY5j">{email}</span></div></div>
+                                                    <div className="_2jDL7w"><div><span className="dNZmcB">{.firstName} </span><span className="_3MeY5j">{email}</span></div></div>
                                                 </h5>
-                                            </div>
+                                            </div> */}
                                         </div>
                                         <div className="card checkout-step-two">
                                             <div className="card-header" id="headingTwo">
@@ -265,11 +269,11 @@ class Checkout extends Component {
                                         cartItems.map((row, index) => (
                                             <div className="card-body pt-0 pr-0 pl-0 pb-0" key={index}>
                                                 <div className="cart-list-product">
-                                                    <img className="img-fluid" src={row.photo} alt="cart" />
-                                                    <span className="badge badge-success">{row.discountPer}% OFF</span>
+                                                    <img className="img-fluid" src={row.img} alt="cart" />
+                                                    
                                                     <h5>{row.name}</h5>
-                                                    <h6><strong><span className="mdi mdi-approval" /> Available in</strong> - {row.unitSize} gm</h6>
-                                                    <p className="offer-price mb-0">&#x20B9;{row.qty + '*' + row.netPrice} <i className="mdi mdi-tag-outline" /> <span className="regular-price">&#x20B9;{row.price}</span></p>
+                                                    <h6><strong><span className="mdi mdi-approval" /> Available</strong></h6>
+                                                    <p className="offer-price mb-0"> ${row.price + ' x ' + row.qty} <i className="mdi mdi-tag-outline" /> <span className="regular-price"></span></p>
                                                 </div>
                                             </div>
                                         ))
@@ -277,20 +281,16 @@ class Checkout extends Component {
                                     <div className="total-checkout-group">
                                         <div className="cart-total-dil">
                                             <h4>Sub Total</h4>
-                                            <span>&#x20B9;{subTotal}</span>
+                                            <span>${subTotal}</span>
                                         </div>
                                         <div className="cart-total-dil pt-3">
                                             <h4>Delivery Charges</h4>
-                                            <span>&#x20B9;{deliveryCharge}</span>
+                                            <span>free</span>
                                         </div>
-                                    </div>
-                                    <div className="cart-total-dil saving-total ">
-                                        <h4>Total Saving</h4>
-                                        <span>&#x20B9;{discount}</span>
                                     </div>
                                     <div className="main-total-cart">
                                         <h2>Total</h2>
-                                        <span>&#x20B9;{grandTotal}</span>
+                                        <span>${grandTotal}</span>
                                     </div>
                                 </div>
                             </div>

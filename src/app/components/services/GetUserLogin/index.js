@@ -3,28 +3,40 @@ import { Apis } from '../../../../config';
 import Cookies from 'js-cookie';
 import { NotificationManager } from 'react-notifications';
 
-const getUserLogin = async (data) => {
+const getUserLogin = async(data) => {
+
     try {
         let result = await api.post(Apis.GetUserLogin, data, {
-            withCredentials: true,
-            headers: {
-                'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'
-            }
+
+            // withCredentials: true,
+            // headers: {
+            //     'Access-Control-Allow-Origin': '*',
+            //     'Content-Type': 'application/json'
+            // }
+
         });
+
+
         if (result.data.error) {
             NotificationManager.error(result.data.error);
             return null;
         }
-        return result.data;
+        // return result.data;
+        console.log(result)
     } catch (error) {
         console.log(error);
         return null;
     }
 };
 
-const getUserRegister = async (data) => {
+const getUserRegister = async(data) => {
+
     try {
-        let result = await api.post(Apis.GetUserRegsiter, data);
+        console.log(data)
+        let result = await api.post(Apis.GetUserRegister, data, {
+
+        });
+        console.log(result)
         if (result.data.error) {
             NotificationManager.error(result.data.error);
             return null;
@@ -36,12 +48,14 @@ const getUserRegister = async (data) => {
     }
 };
 
-const authenticate = async (data, email) => {
+const authenticate = async(data, email) => {
     if (typeof window !== "undefined") {
+
         sessionStorage.setItem('_sid', data)
         sessionStorage.setItem('email', email)
+        console.log(data)
         setTimeout(
-            function () {
+            function() {
                 window.location.reload();
             },
             1000
@@ -49,9 +63,9 @@ const authenticate = async (data, email) => {
     }
 };
 
-const getCustomerDetail = async (email) => {
+const getCustomerDetail = async(data) => {
     try {
-        let result = await api.get(Apis.GetCustomerDetails + email);
+        let result = await api.post(Apis.GetCustomerDetails, data);
         if (result.data.error) {
             NotificationManager.error(result.data.error);
             return null;
@@ -63,9 +77,9 @@ const getCustomerDetail = async (email) => {
     }
 };
 
-const getCustomerUpdate = async (data) => {
+const getCustomerUpdate = async(data) => {
     try {
-        let result = await api.post(Apis.GetCustomerUpdateDetails,{data});
+        let result = await api.post(Apis.GetCustomerUpdateDetails, { data });
         if (result.data.error) {
             NotificationManager.error(result.data.error);
             return null;
@@ -77,12 +91,12 @@ const getCustomerUpdate = async (data) => {
     }
 };
 
-const authenticateByCart = async (token, email) => {
+const authenticateByCart = async(token, email) => {
     if (typeof window !== "undefined") {
-       sessionStorage.setItem('_sid', token)
-       sessionStorage.setItem('email', email)
+        sessionStorage.setItem('_sid', token)
+        sessionStorage.setItem('email', email)
         setTimeout(
-            function () {
+            function() {
                 window.location.href = "/checkout";
             },
             1000

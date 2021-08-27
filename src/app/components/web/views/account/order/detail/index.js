@@ -54,7 +54,7 @@ export default class Details extends Component {
                                         </div>
                                     </div>
                                     <h4>{user.firstName}</h4>
-                                    <p>+977 {user.phone}</p>
+                                  
                                     {/* <div className="earn-points"><img src="images/Dollar.svg" alt />Points : <span>20</span></div> */}
                                 </div>
                             </div>

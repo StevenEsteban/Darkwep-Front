@@ -16,13 +16,14 @@ class Topstample extends Component {
     }
     async componentDidMount() {
         let list = await GroceryStampleDetails.getAllGroceryStaple();
+        
         if(list){
-            this.setState({ productlist: list.data, isloaded:true })
+            this.setState({ productlist: list, isloaded:true })
         }
     }
     render() {
-        let list = this.state.productlist.products;
-        console.log(list)
+        let list = this.state.productlist;
+        // console.log(list)
         var settings = {
             dots: false,
             infinite: false,
@@ -71,8 +72,8 @@ class Topstample extends Component {
                 <section className="product-items-slider section-padding">
                     <div className="container" id="header-category-bk">
                         <div className="section-header">
-                            <span>For You</span>
-                            <h5 className="heading-design-h5">Grocery & Staples {/* <span className="badge badge-primary">20% OFF</span> */}
+                            
+                            <h5 className="heading-design-h5">Featured {/* <span className="badge badge-primary">20% OFF</span> */}
                                 <Link to={{
                                     pathname: `/shop/${this.state.productlist.slug}`,
                                     state: list
@@ -85,23 +86,24 @@ class Topstample extends Component {
                                     <div key={index} className="item">
                                         <div className="product">
                                             <Link to={{
-                                                pathname: `/p/${row.slug}/${row.id}`,
+                                                pathname: `/p/${row._id}`,
                                                 state: row
 
                                             }}>
                                                 <div className="product-header">
-                                                    <span className="badge badge-success">{row.discountPer}% OFF</span>
-                                                    <img className="img-fluid" src={row.photo} alt="product" />
-                                                    {/* <span className="veg text-success mdi mdi-circle" /> */}
+                                                    <span className="badge badge-success">ok 1</span>
+                                                    <img className="img-fluid" src={row.img} alt="product" />
+                                                
                                                 </div>
                                                 <div className="product-body">
-                                                    <h5>{row.name}</h5>
-                                                    <h6><strong><span className="mdi mdi-approval" /> Available in</strong> - {row.unitSize}</h6>
+                                                    <h5><strong>{row.name}</strong></h5>
+                                                    <h6><strong><span className="mdi mdi-approval" />in stock</strong></h6>
                                                 </div>
                                             </Link>
                                             <div className="product-footer">
+                                               
+                                                <p className="offer-price mb-0">${row.price} <i className="mdi mdi-tag-outline" /><br /></p>
                                                 <button type="button" className="btn btn-secondary btn-sm float-right" onClick={() => this.props.addToCart(row)}><i className="mdi mdi-cart-outline" /> Add To Cart</button>
-                                                <p className="offer-price mb-0">&#x20B9;{row.price} <i className="mdi mdi-tag-outline" /><br /><span className="regular-price">&#x20B9;{row.netPrice}</span></p>
                                             </div>
                                         </div>
                                     </div>

@@ -6,11 +6,11 @@ import Category from '../category';
 export default class Bannerslider extends Component {
     render() {
         var settings = {
-            dots: false,
+            dots: true,
             infinite: true,
             autoplay: true,
-            speed: 2000,
-            autoplaySpeed: 2000,
+            speed: 4000,
+            autoplaySpeed: 8000,
             slidesToShow: 1,
             slidesToScroll: 1
         };
@@ -20,14 +20,15 @@ export default class Bannerslider extends Component {
                 <Category />
                 <Slider {...settings}>
                     <div className="owl-item">
-                        <img src="img/banners/offer-1.jpg" alt="supermarket" />
-                    </div >
-                    <div className="owl-item">
-                        <img src="img/banners/offer-2.jpg" alt="supermarket" />
+                        <img src="img/banners/offer-1.jpg" alt="DarkwepBanner1" />
                     </div>
                     <div className="owl-item">
-                        <img src="img/banners/offer-3.jpg" alt="supermarket" />
+                        <img src="img/banners/offer-3.jpg" alt="DarkwepBanner3" />
                     </div>
+                    <div className="owl-item">
+                        <img src="img/banners/offer-2.jpg" alt="DarkwepBanner2" />
+                    </div>
+                    
                 </Slider>
             </div>
         )
