@@ -41,7 +41,13 @@ class Checkout extends Component {
         console.log(this.state)
         console.log(cartItems)
         console.log(this.props)
-        let orderdata = {products : [], user_id: '', price : 10}
+        
+        let productArr = []
+        this.props.cartItems.forEach((cartItem) => {
+            productArr.push(cartItem._id)
+
+        })
+        let orderdata = {products : productArr, user_id: '', price : 10}
         // let { cartItems } = this.props
         // let data = {user_id: user_id, products: cartItems, price: grandTotal }
         // console.log(data)
